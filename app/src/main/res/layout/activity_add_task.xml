@@ -4,24 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".AddTask">
 
     <TextView
-        android:id="@+id/tittle_app"
+        android:id="@+id/tittle_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/MAGENTA"
         style="@style/TittleApp"
-        android:text="List Of Tasks"/>
+        android:text="Add new task"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list"
+    <EditText
+        android:id="@+id/task_name"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/tittle_app"
-        app:layout_constraintBottom_toTopOf="@id/btn_add"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tittle_layout"
+        android:background="@drawable/add_task_form_border"
+        style="@style/AddTaskForms"
+        android:hint="Task Name"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toBottomOf="@id/task_name"
+        android:background="@drawable/add_task_form_border"
+        style="@style/AddTaskForms"
+        android:gravity="top|left"
+        android:hint="Note"/>
 
     <Button
         android:id="@+id/btn_add"
@@ -29,6 +38,6 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         android:textAllCaps="false"
-        android:text="Add Task"/>
+        android:text="Add"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
