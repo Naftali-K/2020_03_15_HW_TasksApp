@@ -20,6 +20,7 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityViewHo
     public void onBindViewHolder(@NonNull MainActivityViewHolder holder, int position) {
         holder.nameTask.setText(DataManager.getTasks().get(position).getNameTask());
         holder.taskNote.setText(DataManager.getTasks().get(position).getNote());
+        holder.taskStatus.setText(DataManager.getTasks().get(position).getStatus().toString());
     }
 
     @Override
@@ -34,11 +35,12 @@ public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityViewHo
 
 class MainActivityViewHolder extends RecyclerView.ViewHolder {
 
-    TextView nameTask;
-    TextView taskNote;
+    TextView nameTask, taskNote, taskStatus;
+
     public MainActivityViewHolder(@NonNull View itemView) {
         super(itemView);
         nameTask = itemView.findViewById(R.id.name_task);
         taskNote = itemView.findViewById(R.id.task_note);
+        taskStatus = itemView.findViewById(R.id.task_status);
     }
 }

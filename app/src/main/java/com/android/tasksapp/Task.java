@@ -3,13 +3,15 @@ package com.android.tasksapp;
 public class Task {
     private String NameTask;
     private String note;
+    private Statuses status;
 
     public Task() {
     }
 
-    public Task(String nameTask, String note) {
-        NameTask = nameTask;
+    public Task(String nameTask, String note, Statuses status) {
+        this.NameTask = nameTask;
         this.note = note;
+        this.status = status;
     }
 
     public String getNameTask() {
@@ -26,5 +28,13 @@ public class Task {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Statuses getStatus() {
+        return status;
+    }
+
+    public void setStatus(Statuses status) {
+        this.status = status;
     }
 }

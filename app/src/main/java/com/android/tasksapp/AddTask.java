@@ -6,6 +6,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,12 +30,36 @@ public class AddTask extends AppCompatActivity {
                     String taskName = taskNameView.getText().toString();
                 TextView taskNoteView = findViewById(R.id.task_note);
                     String taskNote = taskNoteView.getText().toString();
+                RadioGroup radioGroup = findViewById(R.id.radio_group);
+                    int selectedID = radioGroup.getCheckedRadioButtonId();
+                    
 
-                if(taskName.equals("")){
-                    Toast.makeText(getBaseContext(), "You not wrode name task", Toast.LENGTH_LONG).show();
+                if(taskName.equals("")) {
+                    Toast.makeText(getBaseContext(), "You not wrote name task", Toast.LENGTH_LONG).show();
+                }else if(selectedID == -1){
+                    Toast.makeText(getBaseContext(), "You not decided status", Toast.LENGTH_LONG).show();
                 }else{
 
-                    Task task = new Task(taskName, taskNote); //making new task
+                    RadioButton radioButton = (RadioButton)findViewById(selectedID);
+                    //Toast.makeText(getBaseContext(), "you choises: " + radioButton.getText().toString(), Toast.LENGTH_LONG).show();
+
+                    Statuses status;
+
+                    switch (radioButton.getText().toString()){
+                        case "To do":
+                            status = Statuses.TO_DO;
+                            break;
+                        case "In Progress":
+                            status = Statuses.IN_PROGRESS;
+                            break;
+                        case "Completed":
+                            status = Statuses.COMPLETED;
+                            break;
+                        default:
+                            status = Statuses.NOT_DECIDED;
+                    }
+
+                    Task task = new Task(taskName, taskNote, status); //making new task
                     //option 1
                     DataManager.addTask(task); //add new task to list of tasks
 

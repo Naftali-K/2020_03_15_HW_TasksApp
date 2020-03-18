@@ -6,4 +6,9 @@
 
     <color name="MAGENTA">#FF00FF</color>
     <color name="BLACK">#000</color>
+
+    <color name="LIGHT_GREEN">#0f0</color>
+    <color name="RED">#f00</color>
+    <color name="BLUE">#00f</color>
+
 </resources>

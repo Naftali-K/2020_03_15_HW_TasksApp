@@ -16,11 +16,19 @@
         android:hint="Task Name"/>
 
     <TextView
+        android:id="@+id/task_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:hint="Status"/>
+
+    <TextView
         android:id="@+id/task_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name_task"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:hint="Notes of task"/>
+        android:hint="Notes of task empty"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
