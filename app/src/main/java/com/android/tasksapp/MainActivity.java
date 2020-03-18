@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,6 +19,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Rows for test
+//        DataManager.addTask(new Task("test1", "note1"));
+//        DataManager.addTask(new Task("test2", "note2"));
+//        DataManager.addTask(new Task("test3", "note3"));
+//        DataManager.addTask(new Task("test4", "note4"));
+//        DataManager.addTask(new Task("test5", "note5"));
+
 
         RecyclerView rv = findViewById(R.id.rv_list);
         adapter = new MainActivityAdapter();
@@ -36,10 +45,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == NUM_REQUEST && requestCode == RESULT_OK){
+        if(requestCode == NUM_REQUEST && resultCode == RESULT_OK){
             adapter.addTask();
+            Toast.makeText(getBaseContext(), "Task Added", Toast.LENGTH_LONG).show();
+//            MainActivityAdapter adapter2 = new MainActivityAdapter();
+//            RecyclerView rv = findViewById(R.id.rv_list);
+//            rv.setAdapter(adapter2);
         }else{
-
+            Toast.makeText(getBaseContext(), "Task Added", Toast.LENGTH_LONG).show();
         }
     }
 }

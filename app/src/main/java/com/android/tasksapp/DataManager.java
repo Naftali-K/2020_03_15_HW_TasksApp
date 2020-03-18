@@ -13,7 +13,7 @@ public class DataManager {
         DataManager.tasks = tasks;
     }
 
-    public static void addTask(Task tast){
-        tasks.add(tast);
+    public static void addTask(Task task){
+        tasks.add(task);
     }
 }
