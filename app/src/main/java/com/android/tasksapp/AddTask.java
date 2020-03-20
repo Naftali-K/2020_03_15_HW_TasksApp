@@ -3,12 +3,13 @@ package com.android.tasksapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,9 +28,9 @@ public class AddTask extends AppCompatActivity {
             public void onClick(View view) {
 
                 TextView taskNameView = findViewById(R.id.task_name);
-                    String taskName = taskNameView.getText().toString();
+                    final String taskName = taskNameView.getText().toString();
                 TextView taskNoteView = findViewById(R.id.task_note);
-                    String taskNote = taskNoteView.getText().toString();
+                    final String taskNote = taskNoteView.getText().toString();
                 RadioGroup radioGroup = findViewById(R.id.radio_group);
                     int selectedID = radioGroup.getCheckedRadioButtonId();
                     
@@ -43,40 +44,44 @@ public class AddTask extends AppCompatActivity {
                     RadioButton radioButton = (RadioButton)findViewById(selectedID);
                     //Toast.makeText(getBaseContext(), "you choises: " + radioButton.getText().toString(), Toast.LENGTH_LONG).show();
 
-                    Statuses status;
+                    final Statuses status = Statuses.getStatus(radioButton.getText().toString());
 
-                    switch (radioButton.getText().toString()){
-                        case "To do":
-                            status = Statuses.TO_DO;
-                            break;
-                        case "In Progress":
-                            status = Statuses.IN_PROGRESS;
-                            break;
-                        case "Completed":
-                            status = Statuses.COMPLETED;
-                            break;
-                        default:
-                            status = Statuses.NOT_DECIDED;
-                    }
 
-                    Task task = new Task(taskName, taskNote, status); //making new task
-                    //option 1
-                    DataManager.addTask(task); //add new task to list of tasks
+                    AlertDialog.Builder alert = new AlertDialog.Builder(AddTask.this);
+                        alert.setTitle("Add new task");
+                        alert.setMessage("You sure want add this task?");
+                        alert.setCancelable(false);
+                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(getBaseContext(), "Add task cenceled", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    //option 2
-                    JSONObject object = new JSONObject();
-                    try {
-                        object.put("NameTask", taskName);
-                        object.put("note", taskNote);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                                Task task = new Task(taskName, taskNote, status); //making new task
+                                //Add Task option 1
+                                DataManager.addTask(task); //add new task to list of tasks
 
-                    Intent intent = new Intent();
-                        intent.putExtra("newTask", object.toString()); //for option 2
+                                //Add Task option 2
+                                JSONObject object = new JSONObject();
+                                try {
+                                    object.put("NameTask", taskName);
+                                    object.put("note", taskNote);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
-                    setResult(Activity.RESULT_OK, intent); //back with result OK
-                    finish(); //close this LayOut
+                                Intent intent = new Intent();
+                                intent.putExtra("newTask", object.toString()); //for option 2
+
+                                setResult(Activity.RESULT_OK, intent); //back with result OK
+                                finish(); //close this LayOut
+                            }
+                        });
+                        alert.show();
                 }
             }
         });
