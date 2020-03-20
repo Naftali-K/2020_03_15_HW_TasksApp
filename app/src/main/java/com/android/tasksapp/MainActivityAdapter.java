@@ -11,29 +11,29 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MainActivityAdapter extends RecyclerView.Adapter<MainActivityViewHolder> {
     @NonNull
     @Override
-    public MainActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MainActivityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { //here we decide with which one LayOut we will work (which Layout will replay)
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_row, parent, false);
         return new MainActivityViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MainActivityViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MainActivityViewHolder holder, int position) { // here we add information for Layout
         holder.nameTask.setText(DataManager.getTasks().get(position).getNameTask());
         holder.taskNote.setText(DataManager.getTasks().get(position).getNote());
         holder.taskStatus.setText(DataManager.getTasks().get(position).getStatus().toString());
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount() { //here we set number replays/number items in list
         return DataManager.getTasks().size();
     }
 
-    public void addTask(){
+    public void addTask(){ // here we making
         notifyDataSetChanged();
     }
 }
 
-class MainActivityViewHolder extends RecyclerView.ViewHolder {
+class MainActivityViewHolder extends RecyclerView.ViewHolder { // here we decide which View we well use for update information
 
     TextView nameTask, taskNote, taskStatus;
 

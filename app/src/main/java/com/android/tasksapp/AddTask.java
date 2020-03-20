@@ -47,17 +47,22 @@ public class AddTask extends AppCompatActivity {
                     final Statuses status = Statuses.getStatus(radioButton.getText().toString());
 
 
-                    AlertDialog.Builder alert = new AlertDialog.Builder(AddTask.this);
-                        alert.setTitle("Add new task");
-                        alert.setMessage("You sure want add this task?");
-                        alert.setCancelable(false);
-                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(AddTask.this); //new object ALERT, connecting to the page "AddTask.java"
+                        /*
+                        NOTE!!!
+                        In new object of alert cant use getBaseContext(), you must write which
+                        exactly page you using for show alert
+                         */
+                        alert.setTitle("Add new task"); // Tittle of alert
+                        alert.setMessage("You sure want add this task?"); // main massage of alert
+                        alert.setCancelable(false); //method making imposible cloce alreat without choise and option "Yes" or "No"
+                        alert.setNegativeButton("No", new DialogInterface.OnClickListener() { // this is actions negative "No"/"Cancel" button
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(getBaseContext(), "Add task cenceled", Toast.LENGTH_LONG).show();
                             }
                         });
-                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() { // this is actions positive "Yes"/"Ok" button
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -81,7 +86,7 @@ public class AddTask extends AppCompatActivity {
                                 finish(); //close this LayOut
                             }
                         });
-                        alert.show();
+                        alert.show(); // run the Alert. without this method, alert not to be working
                 }
             }
         });
