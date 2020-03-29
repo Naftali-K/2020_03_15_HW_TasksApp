@@ -25,6 +25,12 @@
         tools:listitem="@layout/task_row"
         tools:itemCount="3"/>
 
+    <FrameLayout
+        android:id="@+id/frame_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintBottom_toTopOf="@id/btn_add"/>
+
     <Button
         android:id="@+id/btn_add"
         android:layout_width="match_parent"

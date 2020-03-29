@@ -2,6 +2,8 @@ package com.android.tasksapp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -39,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, NUM_REQUEST); //moving to the page "AddTask.java" temporary, with receive result
             }
         });
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        UpdateTaskFragment fragment = new UpdateTaskFragment();
+        transaction.add(R.id.frame_view, fragment);
+        transaction.commit();
     }
 
     // here start work after we finish work with temporary page.
