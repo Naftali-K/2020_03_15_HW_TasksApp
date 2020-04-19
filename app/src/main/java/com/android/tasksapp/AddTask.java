@@ -1,6 +1,7 @@
 package com.android.tasksapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -13,10 +14,15 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.tasksapp.database.Task;
+import com.android.tasksapp.database.TaskDatabase;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AddTask extends AppCompatActivity {
+
+    TaskDatabase taskDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,24 +72,25 @@ public class AddTask extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
-                                Task task = new Task(taskName, taskNote, status); //making new task
+                                //Task task = new Task(taskName, taskNote, status); //making new task
+                                Task task = new Task(0, taskName, taskNote);
                                 //Add Task option 1
-                                DataManager.addTask(task); //add new task to list of tasks
+                                //DataManager.addTask(task); //add new task to list of tasks
 
-                                //Add Task option 2
-                                JSONObject object = new JSONObject();
-                                try {
-                                    object.put("NameTask", taskName);
-                                    object.put("note", taskNote);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
+                                taskDatabase = Room.databaseBuilder(getApplicationContext(), TaskDatabase.class, "DBTask").
+                                        allowMainThreadQueries().build();
+
+                                long indexNewTask = taskDatabase.getTaskDAO().addTask(task);
+
+                                if(indexNewTask != 0){
+                                    Toast.makeText(getBaseContext(), "Add new Task", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent();
+
+                                    setResult(Activity.RESULT_OK, intent); //back with result OK
+                                    finish(); //close this LayOut
+                                }else{
+                                    Toast.makeText(getBaseContext(), "ERROR!! Task not added. Try again", Toast.LENGTH_LONG).show();
                                 }
-
-                                Intent intent = new Intent();
-                                intent.putExtra("newTask", object.toString()); //for option 2
-
-                                setResult(Activity.RESULT_OK, intent); //back with result OK
-                                finish(); //close this LayOut
                             }
                         });
                         alert.show(); // run the Alert. without this method, alert not to be working

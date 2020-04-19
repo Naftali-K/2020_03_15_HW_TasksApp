@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     final int NUM_REQUEST = 123;
     MainActivityAdapter adapter;
+    FragmentManager manager; //manager if fragments
+    FragmentTransaction transaction; //saving in the "transaction" all updated was did
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        UpdateTaskFragment fragment = new UpdateTaskFragment();
-        transaction.add(R.id.frame_view, fragment);
-        transaction.commit();
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction(); //saving in the "transaction" all updated was did
+
+        UpdateTaskFragment fragment = new UpdateTaskFragment(); //connecting activity+layout af fragment
+
+        transaction.add(R.id.frame_view, fragment); //add update in fragment, and connect where will shoving the fragment
+        transaction.commit(); //commit (active) updates
     }
 
     // here start work after we finish work with temporary page.

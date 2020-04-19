@@ -42,7 +42,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tittle_app"
         app:layout_constraintBottom_toTopOf="@id/btn_add"
-        />
+        tools:layout="@layout/fragment_update_tast"/>
 
     <Button
         android:id="@+id/btn_add"

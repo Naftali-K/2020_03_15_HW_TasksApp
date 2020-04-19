@@ -29,7 +29,8 @@
         android:id="@+id/frame_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_add"/>
+        app:layout_constraintBottom_toTopOf="@id/btn_add"
+        tools:layout="@layout/fragment_update_tast"/>
 
     <Button
         android:id="@+id/btn_add"
